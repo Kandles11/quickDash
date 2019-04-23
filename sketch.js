@@ -1,38 +1,25 @@
 function setup() {
-  createCanvas(400,400);
-  input = createInput();
-  input.position(20,65);
-
-  button = createButton('submit');
-  button.position(input.x + input.width, 65);
-  button.mousePressed(press);
-
-  testButton = createButton('show cookie');
-  testButton.position(20,100);
-  testButton.mousePressed(test);
-
-  clearButton = createButton('clear cookie');
-  clearButton.position(120,100);
-  clearButton.mousePressed(clearCookie);
+  createCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
-  background(51);
-  fill(255);
-  text('1. enter data into field',20,150);
-  text('2. click submit',20,170);
-  text('3. click show cookie to display the cokkie',20,190);
-  text('4. clear the cookie with clear cookie button',20,210);
+  let hr = hour();  //gets computer hour
+  let hrFix = ((hr + 11) % 12 + 1); //makes hour 12 hour time
+  let sc = second(); //gets computer seconds
+  let mn = minute(); //gets computer minute
+  let scFix = second(); //set fixed seconds to normal setting
+  let mnFix = minute(); //set fixed mintues to normal setting
+
+  background(255,255,242);
+
+  if (sc < 10 ) {
+ scFix = ('0' + sc);
 }
 
-function press() {
-  document.cookie = input.value();
+if (mn < 10) {
+  mnFix = ('0' + mn)
 }
 
-function test() {
-  alert(document.cookie);
-}
 
-function clearCookie() {
-  document.cookie = "please enter a value"
+  text(hrFix + ":" + mnFix + ":" + scFix, 100,100);
 }
