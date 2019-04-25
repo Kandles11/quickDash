@@ -1,7 +1,10 @@
 let apiKey = 'key=5527428e3c00437db9b132303192003'
 let api = 'https://api.apixu.com/v1/current.json?'
+var query = '0'
 
 let userLocation = '0'
+
+var refreshButton;
 
 function preload() {
   roboto = loadFont('assets/Roboto-Bold.ttf');
@@ -9,6 +12,22 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+    refreshButton = createButton('click me');
+    refreshButton.position(100,100);
+    refreshButton.mousePressed(weatherAsk);
+}
+
+function weatherAsk() {
+  console.log(query);
+  var url = api + apiKey + '&q=' + query
+  console.log(url);
+  loadJSON(url, gotData);
+}
+
+function gotData(data) {
+  weather = data
+  console.log(weather);
 }
 
 function draw() {
@@ -38,8 +57,9 @@ if (mn < 10) {
 function successCallback (position) {
     console.log(position.coords.latitude); // 43.2132209
     console.log(position.coords.longitude); // 27.9571503
-    userLocation = position.coords.latitude + ', ' + position.coords.longitude
+    userLocation = position.coords.latitude + '%20' + position.coords.longitude
     console.log(userLocation);
+    query = userLocation;
 }
 
 function errorCallback (error) {
